@@ -12,3 +12,4 @@ A Unix shell is a command-line interpreter or shell that provides a command line
 - Not more than 5 functions per file
 - All your header files should be include guarded
 - Use system calls only when you need to [(why?)](https://alx-intranet.hbtn.io/rltoken/EU7B1PTSy14INnZEShpobQ)
+## File Structure
