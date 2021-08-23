@@ -13,3 +13,4 @@ A Unix shell is a command-line interpreter or shell that provides a command line
 - All your header files should be include guarded
 - Use system calls only when you need to [(why?)](https://alx-intranet.hbtn.io/rltoken/EU7B1PTSy14INnZEShpobQ)
 ## File Structure
+- [AUTHORS](https://github.com/jeremy302/simple_shell/blob/main/AUTHORS) - List of Contributors to this Repository
