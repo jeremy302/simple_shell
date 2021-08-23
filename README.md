@@ -14,3 +14,4 @@ A Unix shell is a command-line interpreter or shell that provides a command line
 - Use system calls only when you need to [(why?)](https://alx-intranet.hbtn.io/rltoken/EU7B1PTSy14INnZEShpobQ)
 ## File Structure
 - [AUTHORS](https://github.com/jeremy302/simple_shell/blob/main/AUTHORS) - List of Contributors to this Repository
+- [man_1_simple_shell](https://github.com/jeremy302/simple_shell/blob/main/man_1_simple_shell) - Manuel Page of simple_shell project
