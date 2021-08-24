@@ -8,4 +8,6 @@ hsh \- A simple shell for interactive commands
 
 .SH SYNOPSIS
 
-
+.SS SOURCE HEADER FILES:
+.br
+#include <main.h>
