@@ -68,4 +68,4 @@ cd -
 cd
 ​
 .SS SEE ALSO
-man 1 pwd, man 1 lss
+man 1 pwd, man 1 ls
