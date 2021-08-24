@@ -6,3 +6,6 @@ simple_shell is a command line interpreter, or shell, in the tradition of the fi
 .SH OVERVIEW
 
 Reading from either the terminal or files, simple_shell interprets and executes commands.
+
+
+.SH INVOCATION
