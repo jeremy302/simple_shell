@@ -18,3 +18,7 @@ hsh \- A simple shell for interactive commands
 .SS PROTOTYPE:
 hsh [FILE]
 .br
+E.g: hsh ./script
+​
+.SH DESCRIPTION
+hsh is a simple shell created by Jeremy Ola and Hezekiah Ibok. It only has a subset of features compared to dash and csh which it was inspired by.
