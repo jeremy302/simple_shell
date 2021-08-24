@@ -22,3 +22,5 @@ E.g: hsh ./script
 ​
 .SH DESCRIPTION
 hsh is a simple shell created by Jeremy Ola and Hezekiah Ibok. It only has a subset of features compared to dash and csh which it was inspired by.
+It can execute files and commands from PATH, as well as conditionally linked statements.
+It also offers some builtins which are (cd, alias, env, setenv, unsetenv, history, exit, help).
