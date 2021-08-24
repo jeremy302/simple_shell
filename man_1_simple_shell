@@ -67,5 +67,5 @@ cd -
 .br
 cd
 ​
-.SS SEE ALS
+.SS SEE ALSO
 man 1 pwd, man 1 ls
