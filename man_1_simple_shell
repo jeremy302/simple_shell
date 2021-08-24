@@ -52,3 +52,20 @@ cd [DIRECTORY]
 .SS DESCRIPTION
 cd changes the working directory to the given directory. If an argument isn't provided, the $HOME variable is used. If the argument is given as '-', the old working directory ($OLDPWD) is used.
 .br
+When the cd command is executed, if the DIRECTORY doesn't exists, or the current user doesn't have enough permission to 'cd' into it, an error message is print and the last status variable ($?) is set to 2.
+.br
+If the directory exists and can be changed to, $OLDPWD is set to the current directory gotten with the sys call: getcwd (as opposed to the variable: $PWD); the current working directory is changed with 'chdir', and $PWD is set to the current working directory after the change. This means that if you 'cd ..', $PWD doesn't become '..', but it rather becomes the absolute directory path from the root.
+​
+.SS EXAMPLES
+cd /home
+.br
+cd ../
+.br
+cd ./home
+.br
+cd -
+.br
+cd
+​
+.SS SEE ALSO
+man 1 pwd, man 1 ls
