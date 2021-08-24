@@ -9,3 +9,5 @@ Reading from either the terminal or files, simple_shell interprets and executes 
 
 
 .SH INVOCATION
+
+Compile simple_shell with the GNU Compiler Collection, preferably using gcc plus the below specified flags, as per this example (note the use of the * wildcard which enables all related .c files to be compiled concurrently):
