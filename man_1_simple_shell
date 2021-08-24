@@ -37,3 +37,11 @@ setenv - set an environment variable
 .br
 unsetenv - remove an environment variable
 .br
+history - show the command history
+.br
+exit - exit the shell
+.br
+help - display help text for builtins
+.br
+​
+More information about the builtins are provided in their given sections.
