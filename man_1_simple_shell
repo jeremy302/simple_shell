@@ -2,7 +2,9 @@
 
 .TH man 8 "23 August 2021" "1.0" "nuseradd man page"
 
-
+.SH NAME
+hsh \- A simple shell for interactive commands
+​
 
 
 
