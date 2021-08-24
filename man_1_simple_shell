@@ -11,3 +11,10 @@ hsh \- A simple shell for interactive commands
 .SS SOURCE HEADER FILES:
 .br
 #include <main.h>
+.br
+#include <hshtypes.h>
+.br
+​
+.SS PROTOTYPE:
+hsh [FILE]
+.br
