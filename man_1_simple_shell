@@ -45,3 +45,10 @@ help - display help text for builtins
 .br
 ​
 More information about the builtins are provided in their given sections.
+.SH cd
+Changes the working directory
+.SS Prototype:
+cd [DIRECTORY]
+.SS DESCRIPTION
+cd changes the working directory to the given directory. If an argument isn't provided, the $HOME variable is used. If the argument is given as '-', the old working directory ($OLDPWD) is used.
+.br
