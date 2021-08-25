@@ -61,9 +61,15 @@ int exec(char *pathname, char *args[])
 char *search_path(char *str)
 {
 	uint paths_i = 0;
-	char **paths = str_split(((var *)
-							  htbl_str_get(glob_g(VAR_ENV), "PATH"))->val, ':', -1);
+	char *path = ((var *) htbl_str_get(glob_g(VAR_ENV), "PATH"))->val;
+	char **paths = NULL, new_path = 0;
 
+	if (str_starts_with(path, ":") || str_ends_with(path, ":") ||
+		str_contains(path, "::"))
+		new_path = 1, path = str_append(path, ":./");
+	paths = str_split(path, ':', -1);
+	if (new_path)
+		drop(path);
 	for (; paths[paths_i] != NULL; ++paths_i)
 	{
 		char *filepath = join_paths(paths[paths_i], str);

@@ -216,6 +216,7 @@ char str_eq(char *s1, char *s2);
 char str_has_ch(char *str, char c);
 char *str_fill(char c, uint len);
 char chr_printable(char c);
+char str_contains(char *str, char *sub_str);
 
 /* char *readln(int handle); */
 int getln(char **lineptr, size_t *n, int handle);

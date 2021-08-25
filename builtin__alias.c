@@ -61,34 +61,30 @@ void print_aliases(Hashtable *aliases_htbl)
  * assign_aliases - associates expansion strings with aliase names
  * @raliases_htbl: aliases hashtable reference
  * @rarg: arg variable reference
- * @ralias_splits: alias_splits reference
  * @ralias_exp: alias_exp reference
  * @ralias_name: alias_name reference
  *
  * Return: void
  */
 void assign_aliases(Hashtable **raliases_htbl, char **rarg,
-				   char ***ralias_splits, char **ralias_exp, char **ralias_name)
+					char **ralias_exp, char **ralias_name)
 {
 	Hashtable *aliases_htbl = *raliases_htbl;
-	char *arg = *rarg, **alias_splits = *ralias_splits,
-		*alias_exp = *ralias_exp, *alias_name = *ralias_name;
-	char st_eq = arg[0] == '=';
+	char *arg = *rarg, *alias_exp = *ralias_exp, *alias_name = *ralias_name;
+	char *eq_ptr, *_exp;
 
-	if (st_eq)
-		arg[0] = 'a';
-	alias_splits = str_split(arg, '=', 1), alias_name = alias_splits[0];
-	if (st_eq)
-		arg[0] = '=', alias_splits[0][0] = '=';
-	alias_exp = htbl_str_get(aliases_htbl, alias_name);
-	if (alias_exp != NULL)
-		drop(alias_exp);
-	alias_exp = str_clone(alias_splits[1]);
+
+
+	eq_ptr = str_chr(arg + (arg[0] == '='), '='), *eq_ptr = '\0';
+	alias_name = str_clone(arg), alias_exp = str_clone(eq_ptr + 1);
+	*eq_ptr = '=';
+	_exp = htbl_str_get(aliases_htbl, alias_name);
+	if (_exp != NULL)
+		drop(_exp);
 	htbl_set(aliases_htbl, alias_name, str_len(alias_name), alias_exp);
-	drop(alias_splits[0]);
-	drop(alias_splits);
+	drop(alias_name);
 
-	*raliases_htbl = aliases_htbl, *rarg = arg, *ralias_splits = alias_splits,
+	*raliases_htbl = aliases_htbl, *rarg = arg,
 		*ralias_exp = alias_exp, *ralias_name = alias_name;
 }
 
@@ -103,7 +99,7 @@ int builtin__alias(Invokable params)
 	Hashtable *aliases_htbl = glob_g(VAR_ALIASES);
 	int status = 0, args_i = 0, args_queue_i = 0, exps_queue_i = 0,
 		args_queue_size = 10, exps_queue_size = 10, print_i = 0;
-	char **args = params.args, *arg, **alias_splits, *alias_name = NULL,
+	char **args = params.args, *arg, *alias_name = NULL,
 		*alias_exp = NULL, **args_queue = pick(sizeof(char *) * args_queue_size),
 		**exps_queue = pick(sizeof(char *) * exps_queue_size);
 
@@ -115,7 +111,7 @@ int builtin__alias(Invokable params)
 		{
 			arg = args[args_i];
 			if (str_has_ch(arg + (*arg == '='), '='))
-				assign_aliases(&aliases_htbl, &arg, &alias_splits,
+				assign_aliases(&aliases_htbl, &arg,
 							   &alias_exp, &alias_name);
 			else
 			{
