@@ -73,9 +73,14 @@ void assign_aliases(Hashtable **raliases_htbl, char **rarg,
 	Hashtable *aliases_htbl = *raliases_htbl;
 	char *arg = *rarg, **alias_splits = *ralias_splits,
 		*alias_exp = *ralias_exp, *alias_name = *ralias_name;
+	char st_eq = arg[0] == '=';
 
+	if (st_eq)
+		arg[0] = 'a';
 	alias_splits = str_split(arg, '=', 1), alias_name = alias_splits[0];
-	alias_exp = htbl_str_get(aliases_htbl, arg);
+	if (st_eq)
+		arg[0] = '=', alias_splits[0][0] = '=';
+	alias_exp = htbl_str_get(aliases_htbl, alias_name);
 	if (alias_exp != NULL)
 		drop(alias_exp);
 	alias_exp = str_clone(alias_splits[1]);
@@ -109,7 +114,7 @@ int builtin__alias(Invokable params)
 		for (args_i = 0; args[args_i] != NULL; ++args_i)
 		{
 			arg = args[args_i];
-			if (str_has_ch(arg, '='))
+			if (str_has_ch(arg + (*arg == '='), '='))
 				assign_aliases(&aliases_htbl, &arg, &alias_splits,
 							   &alias_exp, &alias_name);
 			else

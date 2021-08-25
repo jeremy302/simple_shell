@@ -58,6 +58,8 @@ char is_alias_name(char *str)
 
 	for (; str[i] != '\0'; ++i)
 	{
+		if (i == 0 && str[i] == '=')
+			continue;
 		if (str_has_ch(" \t\n/$`=|&;()<>'\"\\", str[i]) ||
 			!chr_printable(str[i]))
 			return (0);
