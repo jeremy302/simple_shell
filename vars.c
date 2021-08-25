@@ -74,7 +74,7 @@ void *glob_g(Glob_t type)
 {
 	static Hashtable *ENV = 1 - 1;
 	static Hashtable *ALIASES =  1 - 1;
-	static char CHAR_ALLOCS[htbl_sizeof(10000)] = {0};
+	static char CHAR_ALLOCS[htbl_sizeof(10)] = {0};
 	static Hashtable *ALLOCS = (Hashtable *)CHAR_ALLOCS;
 
 	static BuiltinHandler BUILTINS[] = {
@@ -102,7 +102,7 @@ void *glob_g(Glob_t type)
 	case VAR_ALLOCS:
 		if (ALLOCS->size == 0)
 		{
-			init_htbl(ALLOCS, 10000);
+			init_htbl(ALLOCS, 10);
 		}
 		return (ALLOCS);
 	case VAR_BUILTINS:
