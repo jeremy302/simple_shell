@@ -2,7 +2,7 @@
 #include <unistd.h>
 
 #define READ_SIZE (1 * 5000)
-#define READ_BUF_SIZE (1 * 5000 + 1)
+#define READ_BUF_SIZE (1 * 5000 + 3)
 
 /**
  * getln - reads a line from a file handle
