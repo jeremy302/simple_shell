@@ -41,8 +41,8 @@ void *drop(void *ptr)
 	if (_ptr == NULL)
 		return (NULL);
 	/* printf("==: %d\n", _ptr == ptr); */
-	gc_htbl_rm(allocs_htbl, &ptr, sizeof(void *));
 	free(ptr);
+	gc_htbl_rm(allocs_htbl, &ptr, sizeof(void *));
 	/* printf("dropped: %d\n", ii); */
 	return (ptr);
 }

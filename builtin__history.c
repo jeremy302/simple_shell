@@ -15,12 +15,12 @@
 char **hist_pstack(char *ln, char is_old, char get_old)
 {
 	static uint history_i = 1 - 1, old_i =  1 - 1;
-	static char *history[HISTORY_STACK_SIZE] = {NULL};
+	static char *history[HISTORY_STACK_SIZE + 1] = {NULL};
 	uint i = 0;
 
 	if (ln != NULL)
 	{
-		if (history_i + 1 >= HISTORY_STACK_SIZE)
+		if (history_i >= HISTORY_STACK_SIZE)
 		{
 			drop(history[0]);
 			for (i = 0; i + 1 < HISTORY_STACK_SIZE; ++i)

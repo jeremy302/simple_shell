@@ -16,7 +16,7 @@ void quit(int status)
 	char status_success;
 
 	if (status == INT_MIN)
-		status = parse_exit_status(get_var("$")->val, &status_success);
+		status = parse_exit_status(get_var("?")->val, &status_success);
 	save_history();
 	free_globals();
 	exit(status);
@@ -104,7 +104,7 @@ int main(int argc, char **argv, char **env)
 	/* system(c); */
 	drop(c);
 
-	if (argc != 1)
+	if (argc > 1)
 	{
 		handle = open(argv[1], O_RDONLY);
 		if (handle == -1)
