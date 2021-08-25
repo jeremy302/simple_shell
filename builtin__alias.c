@@ -48,6 +48,7 @@ void print_aliases(Hashtable *aliases_htbl)
 	{
 		alias_hash_obj = (HashItem *)alias_node->val;
 		alias_name = pick(sizeof(char) * (alias_hash_obj->key_len + 1));
+		memcp(alias_hash_obj->key, alias_name, alias_hash_obj->key_len);
 		put_s(alias_name);
 		put_s("=");
 		print_alias_expansion(alias_hash_obj->val);
