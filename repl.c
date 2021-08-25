@@ -106,7 +106,8 @@ void run_statements(RawStatement ***rstms, int *rstm_i, RawStatement **rstm,
 		}
 		if (skip_stms)
 			continue;
-		status = interprete_statement(stm), set_last_status(status);
+		status = interprete_statement(stm);
+		set_last_status(status);
 		if ((stm->delim == DELIM_AND && status != 0) ||
 			(stm->delim == DELIM_OR && status == 0))
 			skip_stms = 1;

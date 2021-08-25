@@ -40,16 +40,19 @@ void print_aliases(Hashtable *aliases_htbl)
 {
 	HashItem *alias_hash_obj = NULL;
 	Node *alias_node = NULL;
+	char *alias_name = NULL;
 
 	alias_node = htbl_node_iter(aliases_htbl, alias_node);
 	for (; alias_node != NULL;
 		 alias_node = htbl_node_iter(aliases_htbl, alias_node))
 	{
 		alias_hash_obj = (HashItem *)alias_node->val;
-		put_s(alias_hash_obj->key);
+		alias_name = pick(sizeof(char) * (alias_hash_obj->key_len + 1));
+		put_s(alias_name);
 		put_s("=");
 		print_alias_expansion(alias_hash_obj->val);
 		put_s("\n");
+		drop(alias_name);
 	}
 }
 

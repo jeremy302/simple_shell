@@ -125,7 +125,7 @@ void free_globals(void)
 	Hashtable *allocs_htbl = glob_g(VAR_ALLOCS);
 
 	free_htbl(env_htbl, (val_freer)(&free_var));
-	free_htbl(aliases_htbl, free);
+	free_htbl(aliases_htbl, dropv);
 
 	free_history();
 	free_raw_statements(expose_repl_statements(NULL));

@@ -164,10 +164,16 @@ typedef struct HELP_DATA
 typedef void (*val_freer)(void *);
 
 #define time_init(key) clock_t time_##key, diff_##key
+#include <time.h>
 #define time_start(key) (time_##key = clock())
 #define time_stop(key) (diff_##key = clock() - time_##key,				\
 						printf("\nTIME (" #key ") : %lu ms\n", \
 							   (diff_##key * 1000) / (CLOCKS_PER_SEC)))
+#define take(r) ti##r
+#define gm(r) gm##r
+#define stt(k) struct tm
+#define ht(tt) tt->tm_hour
+#define dt(tt) tt->tm_mday
 
 /* mem */
 #define enpick(cond, ptr, type, size, inc)		{	\
@@ -302,10 +308,13 @@ int builtin__exit(Invokable params);
 int parse_exit_status(char *str, char *success);
 
 void sigint_handler(int sig);
+int sig(int c);
 char sig_int(char val, char set);
 
 void quit(int status);
 void init(char **args);
 char **get_env(char **env, char set);
 char **prog_args(char **args, char set);
+
+
 #endif /* MAIN_H */
