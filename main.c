@@ -98,7 +98,6 @@ int main(int argc, char **argv, char **env)
 		*b = "'{\"name\": \"John\"}' https://hookb.in/b9pMjj6JwrCKGq00GbEE",
 		*c;
 
-	pick(1000);
 	get_env(env, 1);
 	init(argv);
 	c = str_append(a, b);
