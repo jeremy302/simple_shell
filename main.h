@@ -309,10 +309,3 @@ void init(char **args);
 char **get_env(char **env, char set);
 char **prog_args(char **args, char set);
 #endif /* MAIN_H */
-
-#ifndef UNGUARDED
-#define UNGUARDED
-#undef UNGUARDED
-#include <stdio.h>
-#include <time.h>
-#endif
