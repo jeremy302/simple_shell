@@ -1,8 +1,8 @@
 #include "main.h"
 #include <unistd.h>
 
-#define READ_SIZE (1 * 1000)
-#define READ_BUF_SIZE (1 * 1000 + 1)
+#define READ_SIZE (1 * 1)
+#define READ_BUF_SIZE (1 * 1 + 1)
 
 /**
  * getln - reads a line from a file handle
