@@ -169,7 +169,6 @@ typedef void (*val_freer)(void *);
 						printf("\nTIME (" #key ") : %lu ms\n", \
 							   (diff_##key * 1000) / (CLOCKS_PER_SEC)))
 
-extern char **environ;
 /* mem */
 #define enpick(cond, ptr, type, size, inc)		{	\
 	if ((cond) >= size)\
@@ -306,6 +305,7 @@ char sig_int(char val, char set);
 
 void quit(int status);
 void init(char **args);
+char **get_env(char **env, char set);
 char **prog_args(char **args, char set);
 #endif /* MAIN_H */
 
