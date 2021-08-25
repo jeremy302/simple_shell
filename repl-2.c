@@ -4,16 +4,19 @@
 
 /**
  * command_type - determins the command type of a command (e.g builtin or path)
- * @cmd: a string
+ * @cmd: command
+ * @args: arguments
  *
  * Return: the command type
  */
-CMD_T command_type(char *cmd)
+CMD_T command_type(char *cmd, char **args)
 {
 	BuiltinHandler *handlers = glob_g(VAR_BUILTINS);
 
 	if (str_has_ch(cmd, '/'))
 		return (CMD_DIR);
+	if (str_eq(cmd, "env") && args[0] != NULL)
+		return (CMD_PATH);
 	for (; handlers->name != NULL; ++handlers)
 		if (str_eq(cmd, handlers->name))
 			return (CMD_BUILTIN);
@@ -80,7 +83,7 @@ int interprete_statement(RawStatement *statement)
 	uint i = 1, args_i = 0, args_size = 5, _i = 0;
 	char *cmd = parse_datum(statement->datums[0], &_i);
 	char *arg = NULL, **args = pick(sizeof(char *) * args_size);
-	CMD_T cmd_type = command_type(cmd);
+	CMD_T cmd_type = command_type(cmd, statement->datums + 1);
 	CommandHandler handler = NULL;
 	Invokable params;
 
