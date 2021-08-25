@@ -51,8 +51,6 @@ uint32_t hash(void *obj, uint len, uint seed)
  */
 HashEntry *htbl_find(Hashtable *tbl, void *key, uint key_len)
 {
-	if (tbl->size == 0)
-		printf("size is 0\n");
 	return (tbl->entries + (hash(key, key_len, 0) % tbl->size));
 }
 

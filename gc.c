@@ -31,7 +31,6 @@ void *drop(void *ptr)
 
 	free(ptr);
 	return (ptr);
-	printf("freeing %p\n", ptr);
 	_ptr = htbl_get(allocs_htbl, &ptr, sizeof(void *));
 	if (_ptr == NULL)
 		return (NULL);
@@ -81,7 +80,6 @@ void drop_all(void)
 	node = htbl_node_iter(allocs_htbl, node);
 	while (node != NULL)
 	{
-		printf("dropping: %p\n", *(void **)((HashItem *)node->val)->key);
 		free(*(void **)((HashItem *)node->val)->key);
 		_node = node;
 		node = htbl_node_iter(allocs_htbl, node);

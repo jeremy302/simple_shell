@@ -40,7 +40,7 @@ void free_var(var *obj)
  */
 char reg_env(void)
 {
-	char **env = environ;
+	char **env = get_env(NULL, 0);
 	uint i = 0;
 	Hashtable *htbl = glob_g(VAR_ENV);
 

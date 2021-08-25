@@ -1,7 +1,7 @@
 #include "main.h"
 
 /**
- * env_init - loads environment variables from environ
+ * env_init - loads environment variables from the programs env argument
  * @renv: env reference
  * @renv_len: env_len reference
  * @renv_size: env_size reference
@@ -11,14 +11,14 @@
 void env_init(char ***renv, uint *renv_len, uint *renv_size)
 {
 	uint i, env_len = 0, env_size = *renv_size;
-	char **env = *renv;
+	char **env = *renv, **prog_env = get_env(NULL, 0);
 
-	while (environ[env_len] != NULL)
+	while (prog_env[env_len] != NULL)
 		env_len++;
 	env_size = env_len + 21;
 	env = pick(sizeof(char *) * (env_size));
 	for (i = 0; i < env_len; ++i)
-		env[i] = str_clone(environ[i]);
+		env[i] = str_clone(prog_env[i]);
 
 	*renv = env, *renv_len = env_len, *renv_size = env_size;
 }

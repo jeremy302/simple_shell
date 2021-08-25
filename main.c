@@ -68,16 +68,34 @@ void init(char **args)
 }
 
 /**
+ * get_env - stores environment variables
+ * @env: environment variables
+ * @set: whther to set _env
+ *
+ * Return: the stored environment varaibles
+ */
+char **get_env(char **env, char set)
+{
+	static char **_env = 1 - 1;
+
+	if (set)
+		_env = env;
+	return (_env);
+}
+
+/**
  * main - starts the shell
  * @argc: arguments count
  * @argv: arguments
+ * @env: environment variables
  *
  * Return: the last exit status
  */
-int main(int argc, char **argv)
+int main(int argc, char **argv, char **env)
 {
 	int handle;
 
+	get_env(env, 1);
 	init(argv);
 	if (argc != 1)
 	{
@@ -89,7 +107,7 @@ int main(int argc, char **argv)
 	}
 	else
 	{
-		start_repl(0);
+		start_repl(STDIN_FILENO);
 	}
 	return (0);
 }
