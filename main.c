@@ -55,7 +55,7 @@ void init(char **args)
 
 	if (PS1 == NULL)
 	{
-		PS1 = set_var(str_clone("PS1"), str_clone("$ "));
+		PS1 = set_var(str_clone("PS1"), str_clone("($) "));
 		PS1->global = 0;
 	}
 	if (NULL != HOME && NULL != HOME->val)
