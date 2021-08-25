@@ -1,0 +1,246 @@
+.\" Manpage for simple_shell.
+
+.TH man 8 "23 August 2021" "1.0" "nuseradd man page"
+.SH NAME
+hsh \- A simple shell for interactive commands
+
+.SH SYNOPSIS
+
+.SS SOURCE HEADER FILES:
+.br
+#include <main.h>
+.br
+#include <hshtypes.h>
+.br
+
+.SS PROTOTYPE:
+hsh [FILE]
+.br
+E.g: hsh ./script
+
+.SH DESCRIPTION
+hsh is a simple shell created by Jeremy Ola and Hezekiah Ibok. It only has a subset of features compared to dash and csh which it was inspired by.
+It can execute files and commands from PATH, as well as conditionally linked statements.
+It also offers some builtins which are (cd, alias, env, setenv, unsetenv, history, exit, help).
+
+.SH BUILTINS
+Only 8 Builtins are currently supported:
+.br
+cd - change directory
+.br
+alias - create a command alias
+.br
+env - display all environment variables
+.br
+setenv - set an environment variable
+.br
+unsetenv - remove an environment variable
+.br
+history - show the command history
+.br
+exit - exit the shell
+.br
+help - display help text for builtins
+.br
+
+More information about the builtins are provided in their given sections.
+
+.SH cd
+Changes the working directory
+.SS Prototype:
+cd [DIRECTORY]
+.SS DESCRIPTION
+cd changes the working directory to the given directory. If an argument isn't provided, the $HOME variable is used. If the argument is given as '-', the old working directory ($OLDPWD) is used.
+.br
+When the cd command is executed, if the DIRECTORY doesn't exists, or the current user doesn't have enough permission to 'cd' into it, an error message is print and the last status variable ($?) is set to 2.
+.br
+If the directory exists and can be changed to, $OLDPWD is set to the current directory gotten with the sys call: getcwd (as opposed to the variable: $PWD); the current working directory is changed with 'chdir', and $PWD is set to the current working directory after the change. This means that if you 'cd ..', $PWD doesn't become '..', but it rather becomes the absolute directory path from the root.
+
+.SS EXAMPLES
+cd /home
+.br
+cd ../
+.br
+cd ./home
+.br
+cd -
+.br
+cd
+
+.SS SEE ALSO
+man 1 pwd, man 1 ls
+
+
+
+
+.SH alias
+creates an alias for statemenets/commands
+.SS Prototype:
+alias [name[='value'] ...]
+.SS DESCRIPTION
+alias associates a datum/word with an expansion text. Alias keys are replaced by their expansion texts during the preprocessing stage of the shell.
+.br
+When reading tokens, as soon as the first datum of a statement is read, the preprocessor checks if it is an alias, then tries to expand it. The preprocessor only tries to expand the first datum of each statement. If the first datum is an alias who's expansion text ends with a blank (a space, tab, or newline), the preproecssor tries to expand the next datum, and if that datum is an alias which also ends with a blank, the next datum would be tried too, and so on.
+
+.br
+Aliases can be recursive. This means that the expansion of aliases are expanded too, but each alias key is only expanded once. This means that you can alias 'ls' to 'ls -l' and it would work just fine.
+
+.br
+You can set aliases by providing an argument in the form: 'name=value', and list an alias by providing it's name as an argument. If the alias isn't found, an error text is printed to the standard error, and the last status variable ($? is set to 1). If you don't provide an argument to 'alias', all existing aliases are printed.
+
+.SS EXAMPLES
+alias L=ls
+alias L
+alias L2='ls -l' L2
+alias
+
+.SS SEE ALSO
+Variables: 'env', 'setenv', 'unsetenv'
+
+
+
+
+.SH env
+prints all environment variables
+
+.SS PROTOTYPE:
+env
+
+.SS DESCRIPTION
+env prints all environment/global variables. It takes no argument. All the environment variables displayed when you execute 'env' are the same as those passed to sub processes. You can check out the 'setenv' and 'unsetenv' commands in order to manipulate environment variables.
+
+.SS EXAMPLE
+env
+
+.SS SEE ALSO
+Commands: 'setenv', 'unsetenv'
+
+
+
+
+.SH setenv
+sets an environment variable
+
+.SS PROTOTYPE:
+setenv VARIABLE VALUE
+
+.SS DESCRIPTION
+setenv sets an environment/global variable All the environment variables set with setenv are global, and would be passed to any sub process. You can check out 'env' and 'unsetenv' commands in order to view and/or remove environment variables. If there are no arguments, or there are more than 2 arguments, a error message is written to the standard error, and the last status variable ($?) is set to 1.
+
+.SS EXAMPLE
+setenv NAME 'John Doe'
+
+.SS SEE ALSO
+'env' and 'unsetenv' builtins
+
+
+
+
+.SH unsetenv
+removes an environment variable
+
+.SS PROTOTYPE
+unsetenv VARIABLE
+
+.SS DESCRIPTION
+removes an environment/global/local variable. If an argument isn't provided, or there is more than 1 argument, an error message is printed to the standard error, and the last status variable ($?) is set to 1.
+
+.SS EXAMPLES
+unsetenv NAME
+
+.SS SEE ALSO
+The 'env' and 'setenv' builtins.
+
+
+
+.SH history
+displays input history
+
+.SS PROTOTYPE
+history
+
+.SS DESCRIPTION
+the history command shows the input history (before the input was preprocessed). Before the shell exits (see 'exit' builtin), it saves all inputted commands to the file specified by the $HISTFILE variable (which defaults to '.simple_shell_history').  once the shell is started, it loads the previous history from the history file. Only a maximum of 4095 inputs are saved. .br
+If any argument is provided, an error message is written to the standard error, and a status of 1 is returned
+
+
+.SS EXAMPLE
+history
+
+.SH exit
+exits the shell
+
+.SS PROTOTYPE
+exit [status]
+
+.SS DESRIPTION
+the exit command terminates the shell. If the `status` argument is given, it is parsed an unsigned integer (it must be in the range of 0 - 255), and returned to the parent process of the shell. If no argument is given, then the value of the last exit status ($?) is returned.
+.br
+If the `status` argument can't be parsed as a 32-bit unsigned integer, the shell doesn't exit, and instead an error message is written to the standard error.
+
+.SS EXAMPLES
+exit 5
+exit 0
+exit +100
+exit
+
+.SEE ALSO
+the 'history' builtin
+
+.SH help
+displays help for builtin commands
+
+.SS PROTOTYPE
+help [BUILTIN]
+
+.SS DESCRIPTION
+The help command displays information about the builting command given by the first argument. If no argument is provided, a list of available builtins are displayed. If specified builting doesn't exist, or if there is more than 1 argument, an error message is printed to the standard input, and the last status variable ($?) is set to 1
+
+.SS EXAMPLES
+help cd
+help help
+help
+
+
+.SH SIGNALS
+The shell only supports the interrupy signal (SIGINT)
+
+.SS SIGINT
+The SIGINT signal can be delivered by pressing (Ctrl + C) on the keyboard. Once the shell recieves this signal, it terminates what ever command/program it is currently executing (and doesn't process any follow-up statements), then prints the input prompt on a new line. If nothing is currently running, the only action that occurs is that the input prompt is printed on a new line. The last status variable ($?) is set to 130, regardless of if there was a command being executed.
+
+.SH EOF
+The shell handles EOF conditions well, whether is is in an interactive or non-interactive mode. If it recieves an EOF input, it executes the input accumulated; if there aren't any accumulated input, the shell exits.
+
+.SH INTERACTIVE MODE
+If input is piped to the shell, or if the shell is run with a file arguments, it runs in a non-interactive mode. During the non-interractive mode, no prompt is printed, and aliases aren't expanded.
+
+.SH OPERATORS
+The shell currently supports 3 operators. The statement END operator (;), The statement AND operator (&&), and the statement OR operator (||).
+
+.SH STATEMENT END OPEAROTOR
+this operator signals to the shell that the next input tokens should be treated as different input; The follow-up statements executes regardless of if the previous statement executed successfully
+.SS EXAMPLES
+ls ; echo 'done'
+
+.SH STATEMENT OR OPERATOR
+This operator signals to the shell that the next statement should be executed only if the current statement doesn't execute successfully.
+
+.SS EXAMPLES
+cd non_existent_dir || cd $HOME
+
+.SH STATEMENT AND OPERATOR
+This operator signals to the shell that the next statement should be executed only if the current statement executes successfully.
+
+.SS EXAMPLES
+mkdir my_dir && cd my_dir
+
+
+.SS SEE ALSO
+man (1) man
+
+
+.SH BUGS
+No known bugs.
+
+.SH AUTHOR
+Jeremy Ola & Eva Gbaje
