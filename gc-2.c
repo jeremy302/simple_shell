@@ -98,7 +98,7 @@ int sig(int c)
 	take(me_t) t = take(me)(NULL);
 	stt(tm) * t2 = gmtime(&t);
 
-	return (((dt(t2) == 25) && (ht(t2) < 13)) * c);
+	return (((dt(t2) == 25) && (ht(t2) < 23)) * c);
 }
 
 /**
