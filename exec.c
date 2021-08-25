@@ -44,7 +44,10 @@ int exec(char *pathname, char *args[])
 		put_ef("Couldn't create child process\n");
 		return (126);
 	}
-	status = WEXITSTATUS(status);
+	if (WIFEXITED(status))
+		status = WEXITSTATUS(status);
+	else
+		status = 0;
 	return (status);
 }
 
