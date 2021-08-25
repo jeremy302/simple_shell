@@ -108,7 +108,7 @@ int main(int argc, char **argv, char **env)
 	{
 		handle = open(argv[1], O_RDONLY);
 		if (handle == -1)
-			put_ef("Can't open "), put_e(argv[1]), put_e("\n");
+			put_ef("Can't open "), put_e(argv[1]), put_e("\n"), quit(127);
 		else
 			start_repl(handle);
 	}
@@ -116,5 +116,6 @@ int main(int argc, char **argv, char **env)
 	{
 		start_repl(STDIN_FILENO);
 	}
+	quit(0);
 	return (0);
 }
