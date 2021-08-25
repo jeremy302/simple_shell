@@ -223,6 +223,7 @@ char *unum_to_str(ulong num);
 #define make_big_node(type, extra) (new_node(sizeof(type) + extra))
 Node *new_node(uint val_size);
 void free_node(Node *node);
+void iter_node(Node *node, void (*f)(Node *));
 
 #define htbl_sizeof(size) (sizeof(Hashtable) + (size * sizeof(HashEntry)))
 

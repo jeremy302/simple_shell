@@ -10,7 +10,7 @@
 char *str_append(char *dst, char *src)
 {
 	uint dst_len = str_len(dst), src_len = str_len(src);
-	char *str = malloc(sizeof(char) * (dst_len + src_len + 1));
+	char *str = pick(sizeof(char) * (dst_len + src_len + 1));
 
 	memcp(dst, str, dst_len);
 	memcp(src, str + dst_len, src_len);

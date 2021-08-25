@@ -8,13 +8,17 @@
  */
 void *pick(size_t size)
 {
-	/* Hashtable *allocs_htbl = glob_g(VAR_ALLOCS); */
+	/* static int i = 0; */
+	/* int ii = i++; */
+	/* char d __attribute__((unused)) = printf("picking: %ld(%d)\n", size, ii); */
+	Hashtable *allocs_htbl = glob_g(VAR_ALLOCS);
 	char *ptr = zalloc(size);
 
 	if (ptr != NULL)
 	{
-		/* gc_htbl_set(allocs_htbl, &ptr, sizeof(char *), ptr); */
+		gc_htbl_set(allocs_htbl, &ptr, sizeof(char *), ptr);
 	}
+	/* printf("picked: %ld(%d)\n", size, ii); */
 	return (ptr);
 }
 
@@ -26,16 +30,20 @@ void *pick(size_t size)
  */
 void *drop(void *ptr)
 {
+	/* static int i = 0; */
+	/* int ii = i++; */
+	/* char d __attribute__((unused)) = printf("dropping: %d\n", ii); */
 	Hashtable *allocs_htbl = glob_g(VAR_ALLOCS);
 	void *_ptr = NULL;
 
-	free(ptr);
-	return (ptr);
 	_ptr = htbl_get(allocs_htbl, &ptr, sizeof(void *));
+
 	if (_ptr == NULL)
 		return (NULL);
-	free(ptr);
+	/* printf("==: %d\n", _ptr == ptr); */
 	gc_htbl_rm(allocs_htbl, &ptr, sizeof(void *));
+	free(ptr);
+	/* printf("dropped: %d\n", ii); */
 	return (ptr);
 }
 
@@ -76,7 +84,18 @@ void drop_all(void)
 {
 	Hashtable *allocs_htbl = glob_g(VAR_ALLOCS);
 	Node *node = NULL, *_node __attribute__((unused)) = NULL;
+	uint i = 0;
 
+	for (i = 0; i < allocs_htbl->size; ++i)
+	{
+		node = (allocs_htbl->entries + i)->first;
+		if (node == NULL)
+			continue;
+		while (node != NULL)
+			_node = node->next, free(((HashItem *)node->val)->val),
+				free(node), node = _node;
+	}
+	return;
 	node = htbl_node_iter(allocs_htbl, node);
 	while (node != NULL)
 	{

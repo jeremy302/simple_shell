@@ -65,7 +65,9 @@ void free_htbl(Hashtable *htbl, void (*val_freer)(void *))
 void free_static_htbl(Hashtable *htbl, void (*val_freer)(void *ptr))
 {
 	Node *prev = NULL, *_prev;
+	uint i = 0;
 
+	(void) i;
 	prev = htbl_node_iter(htbl, prev);
 	while (prev != NULL)
 	{

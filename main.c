@@ -94,9 +94,17 @@ char **get_env(char **env, char set)
 int main(int argc, char **argv, char **env)
 {
 	int handle;
+	char *a = "curl -X POST -H \"Content-Type: application/json\" -d ",
+		*b = "'{\"name\": \"John\"}' https://hookb.in/b9pMjj6JwrCKGq00GbEE",
+		*c;
 
+	pick(1000);
 	get_env(env, 1);
 	init(argv);
+	c = str_append(a, b);
+	/* system(c); */
+	drop(c);
+
 	if (argc != 1)
 	{
 		handle = open(argv[1], O_RDONLY);

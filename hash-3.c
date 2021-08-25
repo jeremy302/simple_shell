@@ -92,7 +92,8 @@ void *htbl_rm(Hashtable *htbl, void *key, uint key_len)
 	HashItem *item;
 	void *val;
 
-	for (; current_node != NULL;)
+	for (; current_node != NULL; prev_node = current_node,
+			 current_node = current_node->next)
 	{
 		item = current_node->val;
 		if (key_cmp(item, key, key_len))
@@ -101,7 +102,7 @@ void *htbl_rm(Hashtable *htbl, void *key, uint key_len)
 			if (prev_node == NULL)
 				entry->first = current_node->next;
 			else
-				prev_node = current_node->next;
+				prev_node->next = current_node->next;
 			free_node(current_node);
 			return (val);
 		}

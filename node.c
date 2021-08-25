@@ -28,3 +28,18 @@ void free_node(Node *node)
 {
 	drop(node);
 }
+
+/**
+ * iter_node - iterates a list
+ * @node: head of list
+ * @f: iter function
+ *
+ * Return: void
+ */
+void iter_node(Node *node, void (*f)(Node *))
+{
+	Node *next;
+
+	while (node != NULL)
+		next = node->next, f(node), node = next;
+}
