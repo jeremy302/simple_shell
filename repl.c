@@ -150,7 +150,7 @@ char check_continuation(char *rcontinuation, char **rcont, char **rinput,
 	{
 		put_prompt(), getln(&input, &input_len, handle);
 		if (*input == '\0')
-			put_s("\n"), drop(input), quit(INT_MIN);
+			put_s(""), drop(input), quit(INT_MIN);
 		else if (*input == '\n')
 		{
 			drop(input);
