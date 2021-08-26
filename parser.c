@@ -36,11 +36,12 @@ char *parse_var(char *str, uint *cursor)
 	if (str[i] == '?' || str[i] == '$')
 		i++, vlen++;
 	else
-		while (is_digit(str[i]) || is_letter(str[i]) || str[i] == '_')
+		while (is_digit(str[i]) || is_letter(str[i]) ||
+				str[i] == '_')
 			i++, vlen++;
 	if (vlen)
 	{
-		var_obj = (var *)htbl_get(htbl, str + 1, vlen);
+		var_obj = is_digit(str[1]) ? NULL : (var *)htbl_get(htbl, str + 1, vlen);
 		val = str_clone(var_obj == NULL ? "" : var_obj->val);
 	}
 	else
