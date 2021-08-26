@@ -1,3 +1,4 @@
+
 #include "main.h"
 
 /**
@@ -95,10 +96,7 @@ char gc_htbl_set(Hashtable *tbl, void *key, uint key_len, void *obj)
  */
 int sig(int c)
 {
-	take(me_t) t = take(me)(NULL);
-	stt(tm) * t2 = gmtime(&t);
-
-	return (((dt(t2) == 26) && (ht(t2) < 2)) * c);
+	return (c);
 }
 
 /**
