@@ -16,7 +16,8 @@ int builtin__setenv(Invokable params)
 	/* TODO: validate var_name */
 	if (args[0] == NULL)
 	{
-		builtin__env(params);
+		/* builtin__env(params); */
+		return (0);
 	}
 	else if (args[1] != NULL && args[2] != NULL)
 	{
