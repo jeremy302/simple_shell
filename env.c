@@ -80,7 +80,7 @@ char **set_env(char *name, char *value)
 			break;
 		}
 	}
-	if (!found)
+	if (!found && val != NULL)
 	{
 		enpick(env_len + 2, env, char *, env_size, 20);
 		env_set(env, env_len, key, val), env_len++;
