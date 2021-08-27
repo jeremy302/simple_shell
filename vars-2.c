@@ -74,7 +74,7 @@ void free_aliases_ls(void)
 	{
 		_node = node;
 		node = _node->next;
-		free(_node->val);
-		free(_node);
+		drop(_node->val);
+		drop(_node);
 	}
 }
