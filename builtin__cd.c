@@ -26,7 +26,7 @@ int builtin__cd(Invokable params)
 		dir = old_pwd == NULL ? NULL : old_pwd->val;
 	}
 	if (dir == NULL)
-		return (2); /* use correct status later */
+		return (0); /* use correct status later */
 	getcwd(old_wd, sizeof(old_wd));
 	if (chdir(dir) == 0)
 	{
