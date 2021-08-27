@@ -59,3 +59,22 @@ void set_last_status(int status)
 {
 	set_var(str_clone("?"), num_to_str(status));
 }
+
+/**
+ * free_aliases_ls - frees alias list
+ *
+ * Return: void
+ */
+void free_aliases_ls()
+{
+	Node *_node = NULL;
+	Node *node = alias_ls(NULL);
+
+	while (node != NULL)
+	{
+		_node = node;
+		node = _node->next;
+		free(_node->val);
+		free(_node);
+	}
+}

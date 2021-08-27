@@ -126,9 +126,11 @@ void free_globals(void)
 
 	free_htbl(env_htbl, (val_freer)(&free_var));
 	free_htbl(aliases_htbl, dropv);
+	free_aliases_ls();
 
 	free_history();
 	free_raw_statements(expose_repl_statements(NULL));
+
 
 	free_env();
 

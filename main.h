@@ -254,6 +254,7 @@ var *get_var(char *name);
 void set_last_status(int status);
 var *set_var(char *name, char *val);
 void free_var(var *obj);
+void free_aliases_ls();
 
 char reg_env(void);
 char **set_env(char *name, char *value);
@@ -295,7 +296,9 @@ int builtin__cd(Invokable params);
 int builtin__env(Invokable params);
 int builtin__setenv(Invokable params);
 int builtin__unsetenv(Invokable params);
+
 int builtin__alias(Invokable params);
+Node *alias_ls(char *name);
 
 int builtin__history(Invokable params);
 char **load_history();

@@ -1,6 +1,35 @@
 #include "main.h"
 
 /**
+ * alias_ls - stores a list of all aliases
+ * @name: alias to add
+ *
+ * Return: head of the list
+ */
+Node *alias_ls(char *name)
+{
+	static Node head = {1 - 1, 1 - 1};
+	Node *alias;
+
+	if (name == NULL)
+		return (head.next);
+	for  (alias = &head; alias->next != NULL; alias = alias->next)
+	{
+		if (alias->val != NULL && str_eq(alias->val, name))
+		{
+			alias->val = name;
+			break;
+		}
+	}
+	if (alias->next == NULL)
+	{
+		alias->next = pick(sizeof(Node));
+		alias->next->val = name;
+	}
+	return (head.next);
+}
+
+/**
  * print_alias_expansion - prints the alias expansion
  * @str: alias expansion
  *
@@ -38,24 +67,20 @@ static void print_alias_expansion(char *str)
  */
 void print_aliases(Hashtable *aliases_htbl)
 {
-	HashItem *alias_hash_obj = NULL;
-	Node *alias_node = NULL;
-	char *alias_name = NULL;
+	Node *ls_node = alias_ls(NULL);
+	char *alias_name = NULL, *alias_exp = NULL;
 
-	alias_node = htbl_node_iter(aliases_htbl, alias_node);
-	for (; alias_node != NULL;
-		 alias_node = htbl_node_iter(aliases_htbl, alias_node))
+	for (; ls_node != NULL; ls_node = ls_node->next)
 	{
-		alias_hash_obj = (HashItem *)alias_node->val;
-		alias_name = pick(sizeof(char) * (alias_hash_obj->key_len + 1));
-		memcp(alias_hash_obj->key, alias_name, alias_hash_obj->key_len);
+		alias_name = ls_node->val;
+		alias_exp = htbl_str_get(aliases_htbl, alias_name);
 		put_s(alias_name);
 		put_s("=");
-		print_alias_expansion(alias_hash_obj->val);
+		print_alias_expansion(alias_exp);
 		put_s("\n");
-		drop(alias_name);
 	}
 }
+
 
 /**
  * assign_aliases - associates expansion strings with aliase names
@@ -73,8 +98,7 @@ void assign_aliases(Hashtable **raliases_htbl, char **rarg,
 	char *arg = *rarg, *alias_exp = *ralias_exp, *alias_name = *ralias_name;
 	char *eq_ptr, *_exp;
 
-
-
+	
 	eq_ptr = str_chr(arg + (arg[0] == '='), '='), *eq_ptr = '\0';
 	alias_name = str_clone(arg), alias_exp = str_clone(eq_ptr + 1);
 	*eq_ptr = '=';
@@ -82,7 +106,7 @@ void assign_aliases(Hashtable **raliases_htbl, char **rarg,
 	if (_exp != NULL)
 		drop(_exp);
 	htbl_set(aliases_htbl, alias_name, str_len(alias_name), alias_exp);
-	drop(alias_name);
+	alias_ls(alias_name);
 
 	*raliases_htbl = aliases_htbl, *rarg = arg,
 		*ralias_exp = alias_exp, *ralias_name = alias_name;
