@@ -74,7 +74,8 @@ char str_ends_with(char *str, char *sub_str)
 {
 	size_t str_l = str_len(str), sub_str_l = str_len(sub_str);
 
-	return (memeq(str + (str_l - sub_str_l), sub_str, sub_str_l + 1));
+	return (sub_str_l > str_l ? 0 :
+			memeq(str + (str_l - sub_str_l), sub_str, sub_str_l + 1));
 }
 
 /**
