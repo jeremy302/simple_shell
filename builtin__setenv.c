@@ -24,7 +24,7 @@ int builtin__setenv(Invokable params)
 		put_ef("Too many arguments.\n");
 		return (1);
 	}
-	else
+	else if (args[1] != NULL)
 	{
 		obj = set_var(str_clone(var_name), str_clone(var_val));
 		set_env(var_name, var_val);

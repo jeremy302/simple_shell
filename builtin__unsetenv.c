@@ -22,5 +22,6 @@ int builtin__unsetenv(Invokable params)
 	if (obj != NULL)
 		free_var(obj);
 	htbl_rm(env_htbl, env_var, str_len(env_var));
+	set_env(env_var, NULL);
 	return (0);
 }
