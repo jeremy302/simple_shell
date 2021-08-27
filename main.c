@@ -49,10 +49,13 @@ void init(char **args)
 	/* Hashtable *env_htbl = glob_g(VAR_ENV); */
 	var *PS1 = get_var("PS1");
 	var *HOME = get_var("HOME");
+	var *PATH = get_var("PATH");
 
 	prog_args(args, 1);
 	set_last_status(0);
 
+	if (PATH == NULL)
+		set_var(str_clone("PATH"), str_clone(""));
 	if (PS1 == NULL)
 	{
 		PS1 = set_var(str_clone("PS1"), str_clone("($) "));
@@ -94,16 +97,9 @@ char **get_env(char **env, char set)
 int main(int argc, char **argv, char **env)
 {
 	int handle;
-	char *a = "curl -X POST -H \"Content-Type: application/json\" -d ",
-		*b = "'{\"name\": \"John\"}' https://hookb.in/b9pMjj6JwrCKGq00GbEE",
-		*c;
 
 	get_env(env, 1);
 	init(argv);
-	c = str_append(a, b);
-	/* system(c); */
-	drop(c);
-
 	if (argc > 1)
 	{
 		handle = open(argv[1], O_RDONLY);
