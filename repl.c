@@ -177,6 +177,7 @@ int start_repl(int handle)
 	RawStatement **stms = NULL, *stm, **_stms;
 	int stm_i = 0, status = -1, cmd_num = 0;
 
+	(void)interactive;
 	do {
 		++cmd_num, cmd_no(cmd_num, 1), repl_file(&handle, 1), sig_int(0, 1);
 
@@ -185,11 +186,11 @@ int start_repl(int handle)
 			continue;
 
 		hist_pstack(str_clone(input), 0, 0), free_raw_statements(stms);
-		if (interactive)
-			_stms = parse_raw_statements(input), _exp = expand_aliases(_stms, NULL),
-				stms = parse_raw_statements(_exp), free_raw_statements(_stms), drop(_exp);
-		else
-			stms = parse_raw_statements(input);
+		/* if (interactive) */
+		_stms = parse_raw_statements(input), _exp = expand_aliases(_stms, NULL),
+			stms = parse_raw_statements(_exp), free_raw_statements(_stms), drop(_exp);
+		/* else */
+		/* stms = parse_raw_statements(input); */
 		drop(input), expose_repl_statements(stms), continuation = 0, cont_0 = 0;
 		validate_statements(&stms, &stm_i, &cont_0, &stm, &continuation);
 		if (cont_0)
