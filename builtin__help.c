@@ -1,7 +1,7 @@
 #include "main.h"
 
 #define  BUILTIN_HELP_CD						\
-"cd: cd [DIRECTORY]",\
+"cd: cd [DIRECTORY]\n",\
 "	Change the shell working directory.",\
 "\n",\
 "	Change the current directory to DIR. the default DIR is the value",\
@@ -20,9 +20,9 @@
 "	directory, and `*` isn't a wildcard). *",\
 "\n",\
 "	Examples: ",\
-"		`cd /usr/bin`",\
-"		`cd -`",\
-"		`cd /home`",\
+"		`cd /usr/bin`\n",\
+"		`cd -`\n",\
+"		`cd /home\n",\
 "		`cd` - switches to the `$HOME` directory",\
 "\n"
 
@@ -36,36 +36,36 @@
 "	If the directory is not found, an error text is printed to the\n"\
 "	standard error, and $? is set accordingly.\n"\
 "\n"\
-"	If the directory exists and can be switched to, `$OLDPWD` is set\n"\
+"	If the directory exists and can be switched to, `$OLDPWD` is set"\
 "	to the previous directory, and `$PWD` is set the new directory.\n"\
 "\n"\
-"	You can go back to the previous directory by using `-` in place\n"\
-"	of the `DIRECTORY` argument.\n"\
+"	You can go back to the previous directory by using `-` in place"\
+"	of the `DIRECTORY` argument."\
 "\n"\
 "	*Arguments are not expanded. (So `~` doesn't expand to the HOME\n"\
-"	directory, and `*` isn't a wildcard). *\n"\
+"	directory, and `*` isn't a wildcard). *"\
 "\n"\
 "	Examples: \n"\
 "		`cd /usr/bin`\n"\
 "		`cd -`\n"\
 "		`cd /home`\n"\
-"		`cd` - switches to the `$HOME` directory\n"\
+"		`cd` - switches to the `$HOME` directory"\
 "\n"
 
 #define BUILTIN_HELP_EXIT_ \
 "exit: exit [status]\n"\
 "	Exit the shell.\n"\
 "\n"\
-"	Exits the shell with a status of `status`.  If `status` is not\n"\
-"	provided, the exit status of the last executed command is used\n"\
+"	Exits the shell with a status of `status`.  If `status` is not"\
+"provided, the exit status of the last executed command is used"\
 	"\n"
 
 #define BUILTIN_HELP_EXIT \
-"exit: exit [status]",\
+"exit: exit [status]\n",\
 "	Exit the shell.",\
 "\n\n",\
 "	Exits the shell with a status of `status`. If `status` is not",\
-"	provided, the exit status of the last executed command is used",\
+"provided, the exit status of the last executed command is used",\
 "\n"
 
 #define BUILTIN_HELP_ALIAS \
@@ -114,7 +114,7 @@
 
 #define BUILTIN_HELP_HISTORY					\
 "history: history",\
-"\nisplays up to the last 4095 commands inputted.",		\
+"\nDisplays up to the last 4095 commands inputted.",		\
 "\nE.g 'history'",\
 "\n"
 
