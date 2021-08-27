@@ -9,23 +9,21 @@
 Node *alias_ls(char *name)
 {
 	static Node head = {1 - 1, 1 - 1};
-	Node *alias;
+	Node *alias, *prev = &head;
 
 	if (name == NULL)
 		return (head.next);
-	for  (alias = &head; alias->next != NULL; alias = alias->next)
+	for  (alias = prev->next; alias != NULL; prev = alias, alias = alias->next)
 	{
 		if (alias->val != NULL && str_eq(alias->val, name))
 		{
+			drop(alias->val);
 			alias->val = name;
-			break;
+			return (head.next);
 		}
 	}
-	if (alias->next == NULL)
-	{
-		alias->next = pick(sizeof(Node));
-		alias->next->val = name;
-	}
+	prev->next = pick(sizeof(Node));
+	prev->next->val = name;
 	return (head.next);
 }
 
