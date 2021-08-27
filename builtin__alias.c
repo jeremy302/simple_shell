@@ -98,7 +98,6 @@ void assign_aliases(Hashtable **raliases_htbl, char **rarg,
 	char *arg = *rarg, *alias_exp = *ralias_exp, *alias_name = *ralias_name;
 	char *eq_ptr, *_exp;
 
-	
 	eq_ptr = str_chr(arg + (arg[0] == '='), '='), *eq_ptr = '\0';
 	alias_name = str_clone(arg), alias_exp = str_clone(eq_ptr + 1);
 	*eq_ptr = '=';

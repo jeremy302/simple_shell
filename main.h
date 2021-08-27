@@ -254,7 +254,7 @@ var *get_var(char *name);
 void set_last_status(int status);
 var *set_var(char *name, char *val);
 void free_var(var *obj);
-void free_aliases_ls();
+void free_aliases_ls(void);
 
 char reg_env(void);
 char **set_env(char *name, char *value);

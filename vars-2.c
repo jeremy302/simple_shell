@@ -65,7 +65,7 @@ void set_last_status(int status)
  *
  * Return: void
  */
-void free_aliases_ls()
+void free_aliases_ls(void)
 {
 	Node *_node = NULL;
 	Node *node = alias_ls(NULL);
