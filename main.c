@@ -64,6 +64,8 @@ void init(char **args)
 	if (NULL != HOME && NULL != HOME->val)
 		set_var(str_clone("HISTFILE"),
 				join_paths(HOME->val, ".simple_shell_history"));
+	else
+		set_var(str_clone("HISTFILE"), str_clone(""));
 	set_var(str_clone("$"), num_to_str(getpid()));
 	load_history();
 
